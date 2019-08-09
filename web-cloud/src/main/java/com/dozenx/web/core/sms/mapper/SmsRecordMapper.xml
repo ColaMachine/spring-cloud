@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dozenx.web.core.sms.dao.SmsRecordMapper">
+
+  <resultMap id="BaseResultMap" type="com.dozenx.web.core.sms.bean.SmsRecord">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="phone" jdbcType="CHAR" property="phone" />
+      <result column="systemNo" jdbcType="VARCHAR" property="systemNo" />
+      <result column="sendTime" jdbcType="TIMESTAMP" property="sendTime" />
+      <result column="content" jdbcType="VARCHAR" property="content" />
+      <result column="status" jdbcType="TINYINT" property="status" />
+      <result column="reason" jdbcType="VARCHAR" property="reason" />
+      <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id` ,`phone` ,`systemNo` ,`sendTime` ,`content` ,`status` ,`reason`, `create_user`
+   
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SmsRecord
+    where id =   #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SmsRecord
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ <insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.dozenx.web.core.sms.bean.SmsRecord" >
+
+    insert into SmsRecord (  <include refid="Base_Column_List" />)
+    values (
+#{id,jdbcType=INTEGER}
+,#{phone,jdbcType=CHAR}
+,#{systemNo,jdbcType=VARCHAR}
+,#{sendTime,jdbcType=TIMESTAMP}
+,#{content,jdbcType=VARCHAR}
+,#{status,jdbcType=TINYINT}
+,#{reason,jdbcType=VARCHAR}
+     ,#{createUser,jdbcType=BIGINT}
+    )
+  </insert>
+   <insert id="insertSelective" parameterType="com.dozenx.web.core.sms.bean.SmsRecord" >
+    insert into SmsRecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+           `id`, 
+        </if>  
+        <if test="phone != null" >  
+           `phone`, 
+        </if>  
+        <if test="systemNo != null" >  
+           `systemNo`, 
+        </if>  
+        <if test="sendTime != null" >  
+           `sendTime`, 
+        </if>  
+        <if test="content != null" >  
+           `content`, 
+        </if>  
+        <if test="status != null" >  
+           `status`, 
+        </if>  
+        <if test="reason != null" >  
+           `reason`, 
+        </if>
+        <if test="createUser != null" >
+            `create_user`,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+          #{id,jdbcType=INTEGER},
+        </if>  
+        <if test="phone != null" >  
+          #{phone,jdbcType=CHAR},
+        </if>  
+        <if test="systemNo != null" >  
+          #{systemNo,jdbcType=VARCHAR},
+        </if>  
+        <if test="sendTime != null" >  
+          #{sendTime,jdbcType=TIMESTAMP},
+        </if>  
+        <if test="content != null" >  
+          #{content,jdbcType=VARCHAR},
+        </if>  
+        <if test="status != null" >  
+          #{status,jdbcType=TINYINT},
+        </if>  
+        <if test="reason != null" >  
+          #{reason,jdbcType=VARCHAR},
+        </if>
+        <if test="createUser != null" >
+            #{createUser,jdbcType=BIGINT},
+        </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dozenx.web.core.sms.bean.SmsRecord" >
+    update SmsRecord
+    <set >
+        <if test="id != null" >  
+             `id`=#{id,jdbcType=INTEGER},
+        </if>  
+        <if test="phone != null" >  
+             `phone`=#{phone,jdbcType=CHAR},
+        </if>  
+        <if test="systemNo != null" >  
+             `systemNo`=#{systemNo,jdbcType=VARCHAR},
+        </if>  
+        <if test="sendTime != null" >  
+             `sendTime`=#{sendTime,jdbcType=TIMESTAMP},
+        </if>  
+        <if test="content != null" >  
+             `content`=#{content,jdbcType=VARCHAR},
+        </if>  
+        <if test="status != null" >  
+             `status`=#{status,jdbcType=TINYINT},
+        </if>  
+        <if test="reason != null" >  
+             `reason`=#{reason,jdbcType=VARCHAR},
+        </if>  
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dozenx.web.core.sms.bean.SmsRecord" >
+    update SmsRecord
+    set 
+              `phone`=#{phone,jdbcType=CHAR},  
+              `systemNo`=#{systemNo,jdbcType=VARCHAR},  
+              `sendTime`=#{sendTime,jdbcType=TIMESTAMP},  
+              `content`=#{content,jdbcType=VARCHAR},  
+              `status`=#{status,jdbcType=TINYINT},  
+              `reason`=#{reason,jdbcType=VARCHAR}  
+where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="listByParams" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SmsRecord where 1=1
+        <if test="id != null and id != '' ">  
+           and `id` = #{id}
+        </if>  
+        <if test="phone != null and phone != '' ">  
+           and `phone` = #{phone}
+        </if>  
+        <if test="phoneLike != null and phoneLike != '' ">  
+             and `phone` like '%#{phoneLike}%'
+        </if>   
+        <if test="systemNo != null and systemNo != '' ">  
+           and `systemNo` = #{systemNo}
+        </if>  
+        <if test="systemNoLike != null and systemNoLike != '' ">  
+             and `systemNo` like '%#{systemNoLike}%'
+        </if>   
+        <if test="sendTime != null and sendTime != '' ">  
+           and `sendTime` = #{sendTime}
+        </if>  
+        <if test="sendTimeBegin != null and sendTimeBegin != '' ">  
+             and `sendTime` &gt;= #{sendTimeBegin}
+        </if>   
+         <if test="sendTimeEnd != null and sendTimeEnd != '' ">  
+             and `sendTime` &lt;= #{sendTimeEnd}
+        </if> 
+        <if test="sendTimeBegin != null and sendTimeBegin != '' ">  
+             and `sendTime` &gt;= #{sendTimeBegin}
+        </if>   
+         <if test="sendTimeEnd != null and sendTimeEnd != '' ">  
+             and `sendTime` &lt;= #{sendTimeEnd}
+        </if> 
+        <if test="content != null and content != '' ">  
+           and `content` = #{content}
+        </if>  
+        <if test="contentLike != null and contentLike != '' ">  
+             and `content` like '%#{contentLike}%'
+        </if>   
+        <if test="status != null and status != '' ">  
+           and `status` = #{status}
+        </if>  
+        <if test="reason != null and reason != '' ">  
+           and `reason` = #{reason}
+        </if>  
+        <if test="reasonLike != null and reasonLike != '' ">  
+             and `reason` like '%#{reasonLike}%'
+        </if>   
+  </select>
+   <select id="listByParams4Page" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SmsRecord where 1=1
+        <if test="id != null and id != '' ">  
+           and `id` = #{id}
+        </if>  
+        <if test="phone != null and phone != '' ">  
+           and `phone` = #{phone}
+        </if>  
+        <if test="phoneLike != null and phoneLike != '' ">  
+             and `phone` like '%#{phoneLike}%'
+        </if>   
+        <if test="systemNo != null and systemNo != '' ">  
+           and `systemNo` = #{systemNo}
+        </if>  
+        <if test="systemNoLike != null and systemNoLike != '' ">  
+             and `systemNo` like '%#{systemNoLike}%'
+        </if>   
+        <if test="sendTime != null and sendTime != '' ">  
+           and `sendTime` = #{sendTime}
+        </if>  
+        <if test="sendTimeBegin != null and sendTimeBegin != '' ">  
+             and `sendTime` &gt;= #{sendTimeBegin}
+        </if>   
+         <if test="sendTimeEnd != null and sendTimeEnd != '' ">  
+             and `sendTime` &lt;= #{sendTimeEnd}
+        </if> 
+        <if test="content != null and content != '' ">  
+           and `content` = #{content}
+        </if>  
+        <if test="contentLike != null and contentLike != '' ">  
+             and `content` like '%#{contentLike}%'
+        </if>   
+        <if test="status != null and status != '' ">  
+           and `status` = #{status}
+        </if>  
+        <if test="reason != null and reason != '' ">  
+           and `reason` = #{reason}
+        </if>  
+        <if test="reasonLike != null and reasonLike != '' ">  
+             and `reason` like '%#{reasonLike}%'
+        </if>   
+  </select>
+   <select id="countByParams" parameterType="map" resultType="java.lang.Integer">
+    select 
+    count(1) 
+    from SmsRecord where 1=1
+        <if test="id != null and id != '' ">  
+           and `id` = #{id}
+        </if>  
+        <if test="phone != null and phone != '' ">  
+           and `phone` = #{phone}
+        </if>  
+        <if test="phoneLike != null and phoneLike != '' ">  
+             and `phone` like '%#{phoneLike}%'
+        </if>   
+        <if test="systemNo != null and systemNo != '' ">  
+           and `systemNo` = #{systemNo}
+        </if>  
+        <if test="systemNoLike != null and systemNoLike != '' ">  
+             and `systemNo` like '%#{systemNoLike}%'
+        </if>   
+        <if test="sendTime != null and sendTime != '' ">  
+           and `sendTime` = #{sendTime}
+        </if>  
+        <if test="sendTimeBegin != null and sendTimeBegin != '' ">  
+             and `sendTime` &gt;= #{sendTimeBegin}
+        </if>   
+         <if test="sendTimeEnd != null and sendTimeEnd != '' ">  
+             and `sendTime` &lt;= #{sendTimeEnd}
+        </if> 
+        <if test="content != null and content != '' ">  
+           and `content` = #{content}
+        </if>  
+        <if test="contentLike != null and contentLike != '' ">  
+             and `content` like '%#{contentLike}%'
+        </if>   
+        <if test="status != null and status != '' ">  
+           and `status` = #{status}
+        </if>  
+        <if test="reason != null and reason != '' ">  
+           and `reason` = #{reason}
+        </if>  
+        <if test="reasonLike != null and reasonLike != '' ">  
+             and `reason` like '%#{reasonLike}%'
+        </if>   
+  </select>
+
+</mapper>

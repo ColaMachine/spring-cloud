@@ -24,6 +24,7 @@
         <module>eureka-server</module>
         <module>service-hi</module>
         <module>service-ribbon2</module>
+        <module>web-cloud</module>
     </modules>
 
     <properties>

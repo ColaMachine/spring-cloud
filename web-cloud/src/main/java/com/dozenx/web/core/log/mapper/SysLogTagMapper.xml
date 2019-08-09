@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dozenx.web.core.log.dao.SysLogTagMapper">
+  <resultMap id="BaseResultMap" type="com.dozenx.web.core.log.bean.SysLogTag">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="remark" jdbcType="VARCHAR" property="remark" />
+      <result column="detail" jdbcType="VARCHAR" property="detail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sys_log_tag.`id` ,sys_log_tag.`remark` ,sys_log_tag.`detail` 
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log_tag
+    where sys_log_tag.id =   #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_log_tag
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ <insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.dozenx.web.core.log.bean.SysLogTag" >
+
+    insert into sys_log_tag (  <include refid="Base_Column_List" />)
+    values (
+#{id,jdbcType=INTEGER}
+,#{remark,jdbcType=VARCHAR}
+,#{detail,jdbcType=VARCHAR}
+    )
+  </insert>
+   <insert id="insertSelective" parameterType="com.dozenx.web.core.log.bean.SysLogTag" >
+    insert into sys_log_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+           `id`, 
+        </if>  
+        <if test="remark != null" >  
+           `remark`, 
+        </if>  
+        <if test="detail != null" >  
+           `detail`, 
+        </if>  
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+          #{id,jdbcType=INTEGER},
+        </if>  
+        <if test="remark != null" >  
+          #{remark,jdbcType=VARCHAR},
+        </if>  
+        <if test="detail != null" >  
+          #{detail,jdbcType=VARCHAR},
+        </if>  
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dozenx.web.core.log.bean.SysLogTag" >
+    update sys_log_tag
+    <set >
+        <if test="id != null" >  
+             `id`=#{id,jdbcType=INTEGER},
+        </if>  
+        <if test="remark != null" >  
+             `remark`=#{remark,jdbcType=VARCHAR},
+        </if>  
+        <if test="detail != null" >  
+             `detail`=#{detail,jdbcType=VARCHAR},
+        </if>  
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dozenx.web.core.log.bean.SysLogTag" >
+    update sys_log_tag
+    set 
+              `remark`=#{remark,jdbcType=VARCHAR},  
+              `detail`=#{detail,jdbcType=VARCHAR}  
+where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="listByParams" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log_tag where 1=1
+        <if test="id != null and id != '' ">  
+           and `id` = #{id}
+        </if>  
+        <if test="remark != null and remark != '' ">  
+           and `remark` = #{remark}
+        </if>  
+        <if test="remarkLike != null and remarkLike != '' ">  
+             and `remark` like "%"#{remarkLike}"%"
+        </if>   
+        <if test="detail != null and detail != '' ">  
+           and `detail` = #{detail}
+        </if>  
+        <if test="detailLike != null and detailLike != '' ">  
+             and `detail` like "%"#{detailLike}"%"
+        </if>   
+  </select>
+   <select id="listByParams4Page" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log_tag
+
+    where 1=1
+        <if test="id != null and id != '' ">  
+           and sys_log_tag.`id` = #{id}
+        </if>  
+        <if test="remark != null and remark != '' ">  
+           and sys_log_tag.`remark` = #{remark}
+        </if>  
+        <if test="remarkLike != null and remarkLike != '' ">  
+             and sys_log_tag.`remark` like "%"#{remarkLike}"%"
+        </if>   
+        <if test="detail != null and detail != '' ">  
+           and sys_log_tag.`detail` = #{detail}
+        </if>  
+        <if test="detailLike != null and detailLike != '' ">  
+             and sys_log_tag.`detail` like "%"#{detailLike}"%"
+        </if>   
+  </select>
+   <select id="countByParams" parameterType="map" resultType="java.lang.Integer">
+    select 
+    count(1) 
+    from sys_log_tag where 1=1
+        <if test="id != null and id != '' ">  
+           and sys_log_tag.`id` = #{id}
+        </if>  
+        <if test="remark != null and remark != '' ">  
+           and sys_log_tag.`remark` = #{remark}
+        </if>  
+        <if test="remarkLike != null and remarkLike != '' ">  
+             and sys_log_tag.`remark` like "%"#{remarkLike}"%"
+        </if>   
+        <if test="detail != null and detail != '' ">  
+           and sys_log_tag.`detail` = #{detail}
+        </if>  
+        <if test="detailLike != null and detailLike != '' ">  
+             and sys_log_tag.`detail` like "%"#{detailLike}"%"
+        </if>   
+  </select>
+ <select id="countByOrParams" parameterType="map" resultType="java.lang.Integer">
+    select
+    count(1)
+    from sys_log_tag where 1!=1
+        <if test="id != null and id != '' ">
+           or `id` = #{id}
+        </if>
+        <if test="remark != null and remark != '' ">
+           or `remark` = #{remark}
+        </if>
+        <if test="detail != null and detail != '' ">
+           or `detail` = #{detail}
+        </if>
+  </select>
+</mapper>

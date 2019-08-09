@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dozenx.web.core.location.dao.LocationMapper">
+    <resultMap id="BaseResultMap" type="com.dozenx.web.core.location.bean.Location">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,area_name,parent_id,area_type
+    </sql>
+    <select id="selectAll"  resultType="java.util.HashMap">
+        select
+        <include refid="Base_Column_List" />
+        from center_pub_area
+
+    </select>
+
+
+
+
+</mapper>

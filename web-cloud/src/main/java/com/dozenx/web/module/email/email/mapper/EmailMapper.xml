@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dozenx.web.module.email.email.dao.EmailMapper">
+  <resultMap id="BaseResultMap" type="com.dozenx.web.module.email.email.bean.Email">
+      <id column="id" jdbcType="BIGINT" property="id" />
+      <result column="to" jdbcType="VARCHAR" property="to" />
+      <result column="title" jdbcType="VARCHAR" property="title" />
+      <result column="content" jdbcType="VARCHAR" property="content" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+      <result column="module" jdbcType="INTEGER" property="module" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    email.`id` ,email.`to` ,email.`title` ,email.`content` ,email.`status` ,email.`module` ,email.`create_time` 
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from email
+    where email.id =   #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from email
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+ <insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.dozenx.web.module.email.email.bean.Email" >
+
+    insert into email (  <include refid="Base_Column_List" />)
+    values (
+#{id,jdbcType=BIGINT}
+,#{to,jdbcType=VARCHAR}
+,#{title,jdbcType=VARCHAR}
+,#{content,jdbcType=VARCHAR}
+,#{status,jdbcType=INTEGER}
+,#{module,jdbcType=INTEGER}
+,#{createTime,jdbcType=TIMESTAMP}
+    )
+  </insert>
+   <insert id="insertSelective" parameterType="com.dozenx.web.module.email.email.bean.Email" >
+    insert into email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+           `id`,
+        </if>  
+        <if test="to != null" >  
+           `to`,
+        </if>  
+        <if test="title != null" >  
+           `title`,
+        </if>  
+        <if test="content != null" >  
+           `content`,
+        </if>  
+        <if test="status != null" >  
+           `status`,
+        </if>  
+        <if test="module != null" >  
+           `module`,
+        </if>  
+        <if test="createTime != null" >  
+           `create_time`,
+        </if>  
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+          #{id,jdbcType=BIGINT},
+        </if>  
+        <if test="to != null" >  
+          #{to,jdbcType=VARCHAR},
+        </if>  
+        <if test="title != null" >  
+          #{title,jdbcType=VARCHAR},
+        </if>  
+        <if test="content != null" >  
+          #{content,jdbcType=VARCHAR},
+        </if>  
+        <if test="status != null" >  
+          #{status,jdbcType=INTEGER},
+        </if>  
+        <if test="module != null" >  
+          #{module,jdbcType=INTEGER},
+        </if>  
+        <if test="createTime != null" >  
+          #{createTime,jdbcType=TIMESTAMP},
+        </if>  
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dozenx.web.module.email.email.bean.Email" >
+    update email
+    <set >
+        <if test="id != null" >  
+             `id`=#{id,jdbcType=BIGINT},
+        </if>  
+        <if test="to != null" >  
+             `to`=#{to,jdbcType=VARCHAR},
+        </if>  
+        <if test="title != null" >  
+             `title`=#{title,jdbcType=VARCHAR},
+        </if>  
+        <if test="content != null" >  
+             `content`=#{content,jdbcType=VARCHAR},
+        </if>  
+        <if test="status != null" >  
+             `status`=#{status,jdbcType=INTEGER},
+        </if>  
+        <if test="module != null" >  
+             `module`=#{module,jdbcType=INTEGER},
+        </if>  
+        <if test="createTime != null" >  
+             `create_time`=#{createTime,jdbcType=TIMESTAMP},
+        </if>  
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dozenx.web.module.email.email.bean.Email" >
+    update email
+    set 
+              `to`=#{to,jdbcType=VARCHAR},
+              `title`=#{title,jdbcType=VARCHAR},
+              `content`=#{content,jdbcType=VARCHAR},
+              `status`=#{status,jdbcType=INTEGER},
+              `module`=#{module,jdbcType=INTEGER},
+              `create_time`=#{createTime,jdbcType=TIMESTAMP}
+where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="listByParams" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from email where 1=1
+        <if test="id != null and id != '' ">  
+           and `id` = #{id}
+        </if>  
+        <if test="to != null and to != '' ">  
+           and `to` = #{to}
+        </if>  
+        <if test="toLike != null and toLike != '' ">
+             and `to` like CONCAT('%',#{toLike},'%')
+        </if>   
+        <if test="title != null and title != '' ">  
+           and `title` = #{title}
+        </if>  
+        <if test="titleLike != null and titleLike != '' ">
+             and `title` like CONCAT('%',#{titleLike},'%')
+        </if>   
+        <if test="content != null and content != '' ">  
+           and `content` = #{content}
+        </if>  
+        <if test="contentLike != null and contentLike != '' ">
+             and `content` like CONCAT('%',#{contentLike},'%')
+        </if>   
+        <if test="status != null and status != '' ">  
+           and `status` = #{status}
+        </if>  
+        <if test="module != null and module != '' ">  
+           and `module` = #{module}
+        </if>  
+        <if test="createTime != null and createTime != '' ">  
+           and `create_time` = #{createTime}
+        </if>  
+        <if test="createTimeBegin != null and createTimeBegin != '' ">  
+             and `create_time` &gt;= #{createTimeBegin}
+        </if>   
+         <if test="createTimeEnd != null and createTimeEnd != '' ">  
+             and `create_time` &lt;= #{createTimeEnd}
+        </if> 
+        <if test="createTimeBegin != null and createTimeBegin != '' ">  
+             and `create_time` &gt;= #{createTimeBegin}
+        </if>   
+         <if test="createTimeEnd != null and createTimeEnd != '' ">  
+             and `create_time` &lt;= #{createTimeEnd}
+        </if> 
+  </select>
+   <select id="listByParams4Page" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from email
+
+    where 1=1
+        <if test="id != null and id != '' ">  
+           and email.`id` = #{id}
+        </if>  
+        <if test="to != null and to != '' ">  
+           and email.`to` = #{to}
+        </if>  
+        <if test="toLike != null and toLike != '' ">  
+             and email.`to` like CONCAT('%',#{toLike},'%')
+        </if>   
+        <if test="title != null and title != '' ">  
+           and email.`title` = #{title}
+        </if>  
+        <if test="titleLike != null and titleLike != '' ">  
+             and email.`title` like CONCAT('%',#{titleLike},'%')
+        </if>   
+        <if test="content != null and content != '' ">  
+           and email.`content` = #{content}
+        </if>  
+        <if test="contentLike != null and contentLike != '' ">  
+             and email.`content` like CONCAT('%',#{contentLike},'%')
+        </if>   
+        <if test="status != null and status != '' ">  
+           and email.`status` = #{status}
+        </if>  
+        <if test="module != null and module != '' ">  
+           and email.`module` = #{module}
+        </if>  
+        <if test="createTime != null and createTime != '' ">  
+           and email.`create_time` = #{createTime}
+        </if>  
+        <if test="createTimeBegin != null and createTimeBegin != '' ">  
+             and email.`create_time` &gt;= #{createTimeBegin}
+        </if>   
+         <if test="createTimeEnd != null and createTimeEnd != '' ">  
+             and email.`create_time` &lt;= #{createTimeEnd}
+        </if> 
+  </select>
+   <select id="countByParams" parameterType="map" resultType="java.lang.Integer">
+    select 
+    count(1) 
+    from email where 1=1
+        <if test="id != null and id != '' ">  
+           and email.`id` = #{id}
+        </if>  
+        <if test="to != null and to != '' ">  
+           and email.`to` = #{to}
+        </if>  
+        <if test="toLike != null and toLike != '' ">  
+             and email.`to` like CONCAT('%',#{toLike},'%')
+        </if>   
+        <if test="title != null and title != '' ">  
+           and email.`title` = #{title}
+        </if>  
+        <if test="titleLike != null and titleLike != '' ">  
+             and email.`title` like CONCAT('%',#{titleLike},'%')
+        </if>   
+        <if test="content != null and content != '' ">  
+           and email.`content` = #{content}
+        </if>  
+        <if test="contentLike != null and contentLike != '' ">  
+             and email.`content` like CONCAT('%',#{contentLike},'%')
+        </if>   
+        <if test="status != null and status != '' ">  
+           and email.`status` = #{status}
+        </if>  
+        <if test="module != null and module != '' ">  
+           and email.`module` = #{module}
+        </if>  
+        <if test="createTime != null and createTime != '' ">  
+           and email.`create_time` = #{createTime}
+        </if>  
+        <if test="createTimeBegin != null and createTimeBegin != '' ">  
+             and email.`create_time` &gt;= #{createTimeBegin}
+        </if>   
+         <if test="createTimeEnd != null and createTimeEnd != '' ">  
+             and email.`create_time` &lt;= #{createTimeEnd}
+        </if> 
+  </select>
+ <select id="countByOrParams" parameterType="map" resultType="java.lang.Integer">
+    select
+    count(1)
+    from email where 1!=1
+        <if test="id != null and id != '' ">
+           or `id` = #{id}
+        </if>
+        <if test="to != null and to != '' ">
+           or `to` = #{to}
+        </if>
+        <if test="title != null and title != '' ">
+           or `title` = #{title}
+        </if>
+        <if test="content != null and content != '' ">
+           or `content` = #{content}
+        </if>
+        <if test="status != null and status != '' ">
+           or `status` = #{status}
+        </if>
+        <if test="module != null and module != '' ">
+           or `module` = #{module}
+        </if>
+        <if test="createTime != null and createTime != '' ">
+           or `create_time` = #{createTime}
+        </if>
+  </select>
+
+
+
+<insert id="insertBatch"   parameterType="java.util.List" >
+    insert into email (  <include refid="Base_Column_List" />)
+        values
+
+        <foreach collection ="list" item="record" index= "index" separator =",">
+         (
+#{record.id,jdbcType=BIGINT}
+,#{record.to,jdbcType=VARCHAR}
+,#{record.title,jdbcType=VARCHAR}
+,#{record.content,jdbcType=VARCHAR}
+,#{record.status,jdbcType=INTEGER}
+,#{record.module,jdbcType=INTEGER}
+,#{record.createTime,jdbcType=TIMESTAMP}
+)
+        </foreach >
+    </insert>
+</mapper>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dozenx.web.core.sysConfig.dao.SysConfigMapper">
+  <resultMap id="BaseResultMap" type="com.dozenx.web.core.sysConfig.bean.SysConfig">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="key" jdbcType="VARCHAR" property="key" />
+      <result column="value" jdbcType="VARCHAR" property="value" />
+      <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sys_config.`id` ,sys_config.`key` ,sys_config.`value` ,sys_config.`remark` 
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_config
+    where sys_config.id =   #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ <insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.dozenx.web.core.sysConfig.bean.SysConfig" >
+
+    insert into sys_config (  <include refid="Base_Column_List" />)
+    values (
+#{id,jdbcType=INTEGER}
+,#{key,jdbcType=VARCHAR}
+,#{value,jdbcType=VARCHAR}
+,#{remark,jdbcType=VARCHAR}
+    )
+  </insert>
+   <insert id="insertSelective" parameterType="com.dozenx.web.core.sysConfig.bean.SysConfig" >
+    insert into sys_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+           `id`, 
+        </if>  
+        <if test="key != null" >  
+           `key`, 
+        </if>  
+        <if test="value != null" >  
+           `value`, 
+        </if>  
+        <if test="remark != null" >  
+           `remark`, 
+        </if>  
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >  
+          #{id,jdbcType=INTEGER},
+        </if>  
+        <if test="key != null" >  
+          #{key,jdbcType=VARCHAR},
+        </if>  
+        <if test="value != null" >  
+          #{value,jdbcType=VARCHAR},
+        </if>  
+        <if test="remark != null" >  
+          #{remark,jdbcType=VARCHAR},
+        </if>  
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dozenx.web.core.sysConfig.bean.SysConfig" >
+    update sys_config
+    <set >
+        <if test="id != null" >  
+             `id`=#{id,jdbcType=INTEGER},
+        </if>  
+        <if test="key != null" >  
+             `key`=#{key,jdbcType=VARCHAR},
+        </if>  
+        <if test="value != null" >  
+             `value`=#{value,jdbcType=VARCHAR},
+        </if>  
+        <if test="remark != null" >  
+             `remark`=#{remark,jdbcType=VARCHAR},
+        </if>  
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dozenx.web.core.sysConfig.bean.SysConfig" >
+    update sys_config
+    set 
+              `key`=#{key,jdbcType=VARCHAR},  
+              `value`=#{value,jdbcType=VARCHAR},  
+              `remark`=#{remark,jdbcType=VARCHAR}  
+where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="listByParams" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_config where 1=1
+        <if test="id != null and id != '' ">  
+           and `id` = #{id}
+        </if>  
+        <if test="key != null and key != '' ">  
+           and `key` = #{key}
+        </if>  
+        <if test="keyLike != null and keyLike != '' ">  
+             and `key` like "%"#{keyLike}"%"
+        </if>   
+        <if test="value != null and value != '' ">  
+           and `value` = #{value}
+        </if>  
+        <if test="valueLike != null and valueLike != '' ">  
+             and `value` like "%"#{valueLike}"%"
+        </if>   
+        <if test="remark != null and remark != '' ">  
+           and `remark` = #{remark}
+        </if>  
+        <if test="remarkLike != null and remarkLike != '' ">  
+             and `remark` like "%"#{remarkLike}"%"
+        </if>   
+  </select>
+   <select id="listByParams4Page" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_config
+
+    where 1=1
+        <if test="id != null and id != '' ">  
+           and sys_config.`id` = #{id}
+        </if>  
+        <if test="key != null and key != '' ">  
+           and sys_config.`key` = #{key}
+        </if>  
+        <if test="keyLike != null and keyLike != '' ">  
+             and sys_config.`key` like "%"#{keyLike}"%"
+        </if>   
+        <if test="value != null and value != '' ">  
+           and sys_config.`value` = #{value}
+        </if>  
+        <if test="valueLike != null and valueLike != '' ">  
+             and sys_config.`value` like "%"#{valueLike}"%"
+        </if>   
+        <if test="remark != null and remark != '' ">  
+           and sys_config.`remark` = #{remark}
+        </if>  
+        <if test="remarkLike != null and remarkLike != '' ">  
+             and sys_config.`remark` like "%"#{remarkLike}"%"
+        </if>   
+  </select>
+   <select id="countByParams" parameterType="map" resultType="java.lang.Integer">
+    select 
+    count(1) 
+    from sys_config where 1=1
+        <if test="id != null and id != '' ">  
+           and sys_config.`id` = #{id}
+        </if>  
+        <if test="key != null and key != '' ">  
+           and sys_config.`key` = #{key}
+        </if>  
+        <if test="keyLike != null and keyLike != '' ">  
+             and sys_config.`key` like "%"#{keyLike}"%"
+        </if>   
+        <if test="value != null and value != '' ">  
+           and sys_config.`value` = #{value}
+        </if>  
+        <if test="valueLike != null and valueLike != '' ">  
+             and sys_config.`value` like "%"#{valueLike}"%"
+        </if>   
+        <if test="remark != null and remark != '' ">  
+           and sys_config.`remark` = #{remark}
+        </if>  
+        <if test="remarkLike != null and remarkLike != '' ">  
+             and sys_config.`remark` like "%"#{remarkLike}"%"
+        </if>   
+  </select>
+ <select id="countByOrParams" parameterType="map" resultType="java.lang.Integer">
+    select
+    count(1)
+    from sys_config where 1!=1
+        <if test="id != null and id != '' ">
+           or `id` = #{id}
+        </if>
+        <if test="key != null and key != '' ">
+           or `key` = #{key}
+        </if>
+        <if test="value != null and value != '' ">
+           or `value` = #{value}
+        </if>
+        <if test="remark != null and remark != '' ">
+           or `remark` = #{remark}
+        </if>
+  </select>
+</mapper>

@@ -1,0 +1,46 @@
+
+
+import org.dom4j.Document;
+import org.dom4j.io.SAXReader;
+
+import javax.servlet.http.HttpServletRequest;
+import java.net.URL;
+import java.util.List;
+
+public class AuthUtil {
+    /**
+     * 向指定URL发送GET方法的请求
+     * 
+     * @modificationHistory.
+     * @param url
+     *            发送请求的URL
+     * @param param
+     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     * @return URL 所代表远程资源的响应结果
+     */
+    /*public static boolean hasPermission(HttpServletRequest request, String resource) {
+      // SysUser user = request.getSession().getAttribute("user");
+        List<SysResource> resourceList = ( List<SysResource>) request.getSession().getAttribute("resourceList");
+        if(resourceList.contains(resource))
+            return true;
+        else
+            return false;
+    }
+
+    public static void hasPermissionE(HttpServletRequest request, String resource) throws Exception {
+        // SysUser user = request.getSession().getAttribute("user");
+        List<SysResource> resourceList = ( List<SysResource>) request.getSession().getAttribute("resourceList");
+        if(!resourceList.contains(resource))
+            throw new Exception("没有权限");
+    }*/
+
+    public static void main(String args[]){
+try
+
+    {
+        Document doc = new SAXReader().read(new URL("http://www.mayadisc.com/forumdisplay.php?fid=5"));
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+    }
+}
